@@ -11,7 +11,7 @@ namespace adventofcode2020
         public static void Execute()
         {
             // load file
-            List<string> numbersInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "DayOne.txt")).ToList();
+            List<string> numbersInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_01.txt")).ToList();
 
             // load into a hashmap
             Hashtable numbers = new Hashtable();

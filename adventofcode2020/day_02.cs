@@ -11,7 +11,7 @@ namespace adventofcode2020
         public static void Execute()
         {
             // load file
-            List<string> passwordsInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "DayTwo.txt")).ToList();
+            List<string> passwordsInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_02.txt")).ToList();
 
             int validCount = 0;
 

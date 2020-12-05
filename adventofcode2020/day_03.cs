@@ -43,7 +43,7 @@ namespace adventofcode2020
         {
             if(_treeInput is null)
             {
-                _treeInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "DayThree.txt")).ToList();
+                _treeInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_03.txt")).ToList();
                 XLengthUntilRepeat = _treeInput[0].Length;
             }
         }
