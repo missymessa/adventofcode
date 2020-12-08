@@ -26,6 +26,9 @@ namespace adventofcode2020
 
             Console.WriteLine("\nAdvent of Code - Day Seven");
             DaySeven.Execute();
+
+            Console.WriteLine("\nAdvent of Code - Day Eight");
+            DayEight.Execute();
         }
     }
 }
