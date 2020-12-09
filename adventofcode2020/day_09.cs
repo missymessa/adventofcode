@@ -63,8 +63,7 @@ namespace adventofcode2020
                 {
                     for(int k = j; k < allValidNumbers.Count; k++)
                     {
-                        List<int> range = allValidNumbers.GetRange(j, k - j);
-                        int currentSum = range.Sum();
+                        int currentSum = allValidNumbers.GetRange(j, k - j).Sum();
                         if(currentSum > invalidNumber)
                         {
                             // stop counting. start over
@@ -74,8 +73,8 @@ namespace adventofcode2020
                         else if(currentSum == invalidNumber)
                         {
                             // add min and max in range and return value. 
-                            int min = range.Min();
-                            int max = range.Max();
+                            int min = allValidNumbers.GetRange(j, k - j).Min();
+                            int max = allValidNumbers.GetRange(j, k - j).Max();
                             Console.WriteLine($"Sum found. Min: {min}, Max: {max}, Sum: {min + max}");
                             return;
                         }
