@@ -75,7 +75,6 @@ namespace adventofcode2020
             int shipEWPosition = 0; // positive for east, negative for west
             int waypointNSPosition = 1; // positive for north, negative for south
             int waypointEWPosition = 10; // positive for east, negative for west
-            char directionFacing = 'E';
 
             using (StreamReader sr = new StreamReader(Path.Combine(Environment.CurrentDirectory, "input", "day_12.txt")))
             {
@@ -105,26 +104,9 @@ namespace adventofcode2020
                         case 'R':
                             (waypointNSPosition, waypointEWPosition) = RotateWaypointRight(waypointNSPosition, waypointEWPosition, units);
                             break;
-                        case 'F':
-                            switch (directionFacing)
-                            {
-                                case 'N':
-                                    shipNSPosition += units * waypointNSPosition;
-                                    shipEWPosition += units * waypointEWPosition;
-                                    break;
-                                case 'S':
-                                    shipNSPosition += units * waypointNSPosition;
-                                    shipEWPosition += units * waypointEWPosition;
-                                    break;
-                                case 'E':
-                                    shipNSPosition += units * waypointNSPosition;
-                                    shipEWPosition += units * waypointEWPosition;
-                                    break;
-                                case 'W':
-                                    shipNSPosition += units * waypointNSPosition;
-                                    shipEWPosition += units * waypointEWPosition;
-                                    break;
-                            }
+                        case 'F':                            
+                            shipNSPosition += units * waypointNSPosition;
+                            shipEWPosition += units * waypointEWPosition;
                             break;
                     }
                 }
