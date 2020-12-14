@@ -175,7 +175,20 @@ namespace adventofcode2020
                 }
             }
 
-            return options.Where(x => x.Length > 0).Select(x => Convert.ToInt64(x.ToString(), 2)).ToList();
+            // iterate through all options and ensure their value contains the last bit. 
+            List<long> results = new List<long>();
+            if(options.Peek().Length == mask.Length)
+            {
+                results = options.Where(x => x.Length > 0).Select(x => Convert.ToInt64(x.ToString(), 2)).ToList();
+            }
+            
+            while(options.Peek().Length > 0)
+            {
+                var o = options.Dequeue();
+                results.Add(Convert.ToInt64(o += maskedValue, 2));
+            }
+
+            return results;
         }
     }
 }
