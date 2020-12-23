@@ -9,7 +9,7 @@ namespace adventofcode2020
     {
         public static void Execute()
         {
-            //ProblemOne();
+            ProblemOne();
             ProblemTwo();
         }
 
