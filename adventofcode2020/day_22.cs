@@ -77,7 +77,7 @@ namespace adventofcode2020
 
                 if (player1.Count > 0 && player2.Count > 0 && player1.Count >= player1Card && player2.Count >= player2Card)
                 {
-                    int winningPlayer = PlayGame(new Queue<int>(player1), new Queue<int>(player2));
+                    int winningPlayer = PlayGame(new Queue<int>(player1.Take(player1Card)), new Queue<int>(player2.Take(player2Card)));
 
                     if (winningPlayer == 1)
                     {
@@ -117,7 +117,7 @@ namespace adventofcode2020
 
         private static (Queue<int> player1, Queue<int> player2) Setup()
         {
-            Queue<string> input = new Queue<string>(File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_22_ex.txt")).ToList());
+            Queue<string> input = new Queue<string>(File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_22.txt")).ToList());
             Queue<int> player1 = new Queue<int>();
             Queue<int> player2 = new Queue<int>();
 
