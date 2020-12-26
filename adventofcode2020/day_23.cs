@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace adventofcode2020
 {
@@ -8,8 +9,14 @@ namespace adventofcode2020
     {
         public static void Execute()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             ProblemOne();
             ProblemTwo();
+
+            stopWatch.Stop();
+            Console.WriteLine(stopWatch.ElapsedMilliseconds);
         }
 
         public static void ProblemOne()
