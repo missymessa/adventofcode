@@ -6,11 +6,11 @@ namespace adventofcode2022
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Advent of Code - Day One");
-            DayOne.Execute();
+            //Console.WriteLine("Advent of Code - Day One");
+            //DayOne.Execute();
 
-            //Console.WriteLine("\nAdvent of Code - Day Two");
-            //DayTwo.Execute();
+            Console.WriteLine("\nAdvent of Code - Day Two");
+            DayTwo.Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Three");
             //DayThree.Execute();

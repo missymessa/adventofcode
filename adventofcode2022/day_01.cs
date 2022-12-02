@@ -31,9 +31,8 @@ namespace adventofcode2022
             }
 
             totals.Sort();
-            int highestTotal = totals.Last();
 
-            Console.WriteLine("Problem 1: {0}", highestTotal);
+            Console.WriteLine("Problem 1: {0}", totals.Last());
 
             Console.WriteLine("Problem 2: {0}", totals.TakeLast(3).Sum(x => x));
 
