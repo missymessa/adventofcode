@@ -15,10 +15,10 @@ namespace adventofcode2022
 
             // *** SAMPLE ***
 
-            //    [D]    
-            // [N][C]
-            // [Z][M][P]
-            //  1  2  3
+            //     [D]    
+            // [N] [C]
+            // [Z] [M] [P]
+            //  1   2   3
 
             //Dictionary<int, Stack<string>> crates = new Dictionary<int, Stack<string>>();
             //crates.Add(1, new Stack<string>(new[] { "Z", "N" }));
@@ -58,15 +58,13 @@ namespace adventofcode2022
                 origin = Convert.ToInt32(instruction.Split("from")[1].Split("to")[0].Trim());
                 destination = Convert.ToInt32(instruction.Split("to")[1].Trim());
 
-                //Console.WriteLine("Count: '{0}', Origin: '{1}', Destination: '{2}'", crateCountToMove, origin, destination);
-
                 Stack<string> temp = new Stack<string>();
 
                 for (int i = 0; i < crateCountToMove; i++)
                 {
                     temp.Push(crates[origin].Pop());
 
-
+                    // Code for part 1
                     //var crate = crates[origin].Pop();
                     //crates[destination].Push(crate);
                 }
@@ -77,10 +75,14 @@ namespace adventofcode2022
                 }
             }
 
+            string output = "";
+
             foreach(var crate in crates)
             {
-                Console.WriteLine("Top Crate: {0}", crate.Value.Peek());
+                output += crate.Value.Peek();
             }
+
+            Console.WriteLine("Top Crates: {0}", output);
         }
     }
 }
