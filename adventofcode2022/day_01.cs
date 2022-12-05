@@ -9,9 +9,14 @@ namespace adventofcode2022
 {
     public static class DayOne
     {
+        private static List<string> LoadInput(string filename)
+        {
+            return File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", filename)).ToList();
+        }
+
         public static void Execute()
         {
-            List<string> numbersInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_01.txt")).ToList();
+            List<string> numbersInput = LoadInput("day_01.txt");
 
             int currentTotal = 0;
 

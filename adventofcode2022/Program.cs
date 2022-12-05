@@ -15,11 +15,11 @@ namespace adventofcode2022
             //Console.WriteLine("\nAdvent of Code - Day Three");
             //DayThree.Execute();
 
-            Console.WriteLine("\nAdvent of Code - Day Four");
-            DayFour.Execute();
+            //Console.WriteLine("\nAdvent of Code - Day Four");
+            //DayFour.Execute();
 
-            //Console.WriteLine("\nAdvent of Code - Day Five");
-            //DayFive.Execute();
+            Console.WriteLine("\nAdvent of Code - Day Five");
+            DayFive.Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Six");
             //DaySix.Execute();

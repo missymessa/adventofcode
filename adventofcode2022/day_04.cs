@@ -14,7 +14,6 @@ namespace adventofcode2022
         {
             List<string> sectionAssignments = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_04.txt")).ToList();
             int totalRangeContains = 0;
-            int totalRangeContains2 = 0;
 
             foreach (var sectionAssignment in sectionAssignments)
             {                
