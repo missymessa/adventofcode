@@ -20,17 +20,12 @@ namespace adventofcode2022
 
             while(!found)
             {
-                if(marker.Contains(datastream[index]))
+                while (marker.Contains(datastream[index]))
                 {
-                    while (marker.Contains(datastream[index]))
-                    {
-                        marker.Dequeue();
-                    }
+                    marker.Dequeue();
                 }
 
-                marker.Enqueue(datastream[index]);
-
-                index++;
+                marker.Enqueue(datastream[index++]);
 
                 if(marker.Count == 14)
                 {
