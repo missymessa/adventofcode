@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using adventofcode.util;
 
 namespace adventofcode2022
 {
@@ -54,9 +55,7 @@ namespace adventofcode2022
                 int origin = 0;
                 int destination = 0;
 
-                crateCountToMove = Convert.ToInt32(instruction.Split("from")[0].Substring(4));
-                origin = Convert.ToInt32(instruction.Split("from")[1].Split("to")[0].Trim());
-                destination = Convert.ToInt32(instruction.Split("to")[1].Trim());
+                RegexHelper.Match(instruction, @"move (\d+) from (\d) to (\d)", out crateCountToMove, out origin, out destination);
 
                 Stack<string> temp = new Stack<string>();
 
