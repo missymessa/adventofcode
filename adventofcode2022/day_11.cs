@@ -87,7 +87,7 @@ namespace adventofcode2022
                 Console.WriteLine("Monkey Id: {0}, Items Inspected: {1}", id, monkey.NumberItemsInspected);
             }
 
-            Int128 monkeyBusiness = monkeys.Values.OrderByDescending(x => x.NumberItemsInspected).Select(x => x.NumberItemsInspected).Take(2).Aggregate((x, y) => x * y);
+            long monkeyBusiness = monkeys.Values.OrderByDescending(x => x.NumberItemsInspected).Select(x => x.NumberItemsInspected).Take(2).Aggregate((x, y) => x * y);
 
             Console.WriteLine("Monkey Buisness: {0}", monkeyBusiness);
         }
@@ -123,7 +123,7 @@ namespace adventofcode2022
             _ifFalse = ifFalse;
         }
 
-        public int NumberItemsInspected { get; private set; }
+        public long NumberItemsInspected { get; private set; }
 
         public Queue<long> Items { get; }
 
