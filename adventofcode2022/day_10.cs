@@ -32,9 +32,9 @@ namespace adventofcode2022
                     PrintPixel(registerValue, cycle);
                     signalStrength += CalculateSignalStrength(registerValue, ++cycle);
 
-                    PrintPixel(registerValue, cycle);
-                    registerValue += addx;
+                    PrintPixel(registerValue, cycle);                    
                     signalStrength += CalculateSignalStrength(registerValue, ++cycle);
+                    registerValue += addx;
                 }
             }
 
