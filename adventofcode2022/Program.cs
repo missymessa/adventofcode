@@ -6,8 +6,8 @@ namespace adventofcode2022
     {
         public static void Main(string[] args)
         {
-            //Console.WriteLine("Advent of Code - Day One");
-            //DayOne.Execute();
+            Console.WriteLine("Advent of Code - Day One");
+            new DayOne().Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Two");
             //DayTwo.Execute();
@@ -45,8 +45,8 @@ namespace adventofcode2022
             //Console.WriteLine("\nAdvent of Code - Day Thirteen");
             //new DayThirteen().Execute();
 
-            Console.WriteLine("\nAdvent of Code - Day Fourteen");
-            DayFourteen.Execute();
+            //Console.WriteLine("\nAdvent of Code - Day Fourteen");
+            //DayFourteen.Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Fifteen");
             //DayFifteen.Execute();

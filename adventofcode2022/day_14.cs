@@ -11,7 +11,7 @@ namespace adventofcode2022
     {
         public static void Execute()
         {
-            //Problem1();
+            Problem1();
             Problem2();
         }
 
