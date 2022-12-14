@@ -236,27 +236,5 @@ namespace adventofcode2022
 
             return true;
         }
-
-        //private class QueueComparer : IComparable<Queue<object>>
-        //{
-        //    public int CompareTo(Queue<object>? other)
-        //    {
-        //        if (IsInOrder(this., other))
-        //            return 1;
-        //        else
-        //            return -1;
-        //    }
-        //}
     }
-
-    //public class CustomQueue : Queue<object>, IComparable
-    //{
-    //    public CustomQueue() { }
-
-    //    public int CompareTo(object? obj)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
 }
