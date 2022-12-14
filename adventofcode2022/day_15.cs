@@ -6,12 +6,20 @@ using System.Threading.Tasks;
 
 namespace adventofcode2022
 {
-    public static class DayFifteen
+    public class DayFifteen : DayBase<int>
     {
+        public DayFifteen() : base("day_15.txt") { }
 
-        private static void Execute()
+        public DayFifteen(string fileName) : base(fileName) { }
+
+        public override int Problem1()
         {
-            List<string> rockInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_15_ex.txt")).ToList();
+            throw new NotImplementedException();
+        }
+
+        public override int Problem2()
+        {
+            throw new NotImplementedException();
         }
     }
 }

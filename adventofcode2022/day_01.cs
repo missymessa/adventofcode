@@ -7,34 +7,18 @@ using System.Threading.Tasks;
 
 namespace adventofcode2022
 {
-    public class DayOne
+    public class DayOne : DayBase<int>
     {
-        private IEnumerable<string> _numbersInput;
+        public DayOne() : base("day_01.txt") { }
 
-        public DayOne() : this("day_01.txt") { }
+        public DayOne(string fileName) : base(fileName) { }
 
-        public DayOne(string fileName)
-        {
-            _numbersInput = LoadInput(fileName);
-        }
-
-        private static List<string> LoadInput(string filename)
-        {
-            return File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", filename)).ToList();
-        }
-
-        public void Execute()
-        {
-            Console.WriteLine("Problem 1: {0}", Problem1());
-            Console.WriteLine("Problem 2: {0}", Problem2());
-        }
-
-        public int Problem1()
+        public override int Problem1()
         {
             return BuildSortedTotalsList().Last();
         }
 
-        public int Problem2()
+        public override int Problem2()
         {
             return BuildSortedTotalsList().TakeLast(3).Sum(x => x);
         }
@@ -45,7 +29,7 @@ namespace adventofcode2022
 
             List<int> totals = new List<int>();
 
-            foreach (var input in _numbersInput)
+            foreach (var input in _input)
             {
                 if (input.IsNullOrEmpty())
                 {
@@ -53,7 +37,7 @@ namespace adventofcode2022
                     currentTotal = 0;
                     continue;
                 }
-                else if (input.Equals(_numbersInput.Last()))
+                else if (input.Equals(_input.Last()))
                 {
                     currentTotal += Convert.ToInt32(input);
                     totals.Add(currentTotal);
