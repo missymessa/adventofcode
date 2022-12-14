@@ -1,4 +1,5 @@
-﻿using Garyon.Extensions;
+﻿using AdventOfCSharp;
+using Garyon.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,54 +9,75 @@ using System.Threading.Tasks;
 
 namespace adventofcode2022
 {
-    public static class DayThirteen
+    public class DayThirteen
     {
-        public static void Execute()
+        public void Execute()
         {
             Queue<string> signalInput = new Queue<string>(File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_13.txt")).ToList());
 
             Dictionary<int, bool> IndicesInOrder = new Dictionary<int, bool>();
+            List<List<object>> allInput = new List<List<object>>();
+
+            List<object> dividerPacket1 = MakeListFromString("[[2]]");
+            List<object> dividerPacket2 = MakeListFromString("[[6]]");
+
+            allInput.Add(dividerPacket1);
+            allInput.Add(dividerPacket2);
+
             int index = 1;
 
-            while(signalInput.Count >= 2)
+            while (signalInput.Count >= 2)
             {
                 string left = signalInput.Dequeue();
                 string right = signalInput.Dequeue();
-                if(signalInput.Count > 0) 
+                if (signalInput.Count > 0)
                     signalInput.Dequeue();
 
-                Queue<object> leftList = MakeQueueFromString(left);
-                Queue<object> rightList = MakeQueueFromString(right);
+                List<object> leftList = MakeListFromString(left);
+                List<object> rightList = MakeListFromString(right);
+
+                allInput.Add(new List<object>(leftList));
+                allInput.Add(new List<object>(rightList));
 
                 IndicesInOrder.Add(index++, IsInOrder(leftList, rightList));
             }
 
             Console.WriteLine("Problem 1: {0}", IndicesInOrder.Where(kvp => kvp.Value == true).Sum(kvp => kvp.Key));
+
+            allInput.Sort(IsInOrderForSort);
+            allInput.Reverse();
+
+            int index1 = allInput.IndexOf(dividerPacket1);
+            int index2 = allInput.IndexOf(dividerPacket2);
+
+            Console.WriteLine("Problem 2: {0}", (index1 + 1) * (index2 + 1));
         }
 
-        private static Queue<object> MakeQueueFromString(string input)
+
+        // Future self, maybe do this with JSON instead? 
+        private List<object> MakeListFromString(string input)
         {
-            var list = new Queue<object>();
+            var list = new List<object>();
 
             char[] chars = input.ToCharArray();
 
-            for(int i = 1; i < chars.Length; i++)
+            for (int i = 1; i < chars.Length; i++)
             {
                 if (chars[i].Equals(','))
                 {
-                    continue; 
+                    continue;
                 }
 
                 if (char.IsDigit(chars[i]))
                 {
                     StringBuilder sub = new StringBuilder();
-                    
+
                     while (i < chars.Length && !chars[i].Equals(',') && !chars[i].Equals(']'))
                     {
                         sub.Append(chars[i++]);
                     }
 
-                    list.Enqueue(Convert.ToInt32(sub.ToString()));
+                    list.Add(Convert.ToInt32(sub.ToString()));
                 }
 
                 if (i < chars.Length && chars[i].Equals('['))
@@ -64,7 +86,7 @@ namespace adventofcode2022
                     StringBuilder sub = new StringBuilder();
                     sub.Append(chars[i++]);
 
-                    while (nestedCount > 0) 
+                    while (nestedCount > 0)
                     {
                         if (chars[i] == '[')
                             nestedCount++;
@@ -74,9 +96,7 @@ namespace adventofcode2022
                         sub.Append(chars[i++]);
                     }
 
-                    //sub.Append(chars[i++]);
-
-                    list.Enqueue(MakeQueueFromString(sub.ToString()));
+                    list.Add(MakeListFromString(sub.ToString()));
                 }
             }
 
@@ -84,41 +104,74 @@ namespace adventofcode2022
         }
 
 
-        // Future self, if you ever decide to refactor this code, returning a -1, 0, 1 is probably better than this boolean/continue jankiness
-        private static bool IsInOrder(Queue<object> left, Queue<object> right)
+        private int IsInOrderForSort(List<object> left, List<object> right)
         {
-            while(left.Count > 0 || right.Count > 0)
+            if (left == null)
             {
-                object currentLeft;
-                if(!left.TryDequeue(out currentLeft) && right.Count >= 0)
+                if (right == null)
+                    return 0;
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                if (right == null)
+                    return 1;
+                else
+                {
+                    if (left.SequenceEqual(right))
+                    {
+                        return 0;
+                    }
+
+                    return IsInOrder(left, right) ? 1 : -1;
+                }
+            }
+        }
+
+        // Future self, if you ever decide to refactor this code, returning a -1, 0, 1 is probably better than this boolean/continue jankiness
+        private bool IsInOrder(List<object> left, List<object> right)
+        {
+            int index = 0;
+
+            while (left.Count > index || right.Count > index)
+            {
+                if (left.Count == index && right.Count > index)
                 {
                     return true;
                 }
-
-                object currentRight;
-                if(!right.TryDequeue(out currentRight))
+                object currentLeft = left[index];
+                
+                if (right.Count == index)
                 {
                     return false;
-                }                
+                }
+                object currentRight = right[index];
 
                 if (currentLeft.GetType() == currentRight.GetType())
                 {
-                    if(currentLeft.GetType() == typeof(int))
+                    if (currentLeft.GetType() == typeof(int))
                     {
                         if ((int)currentLeft == (int)currentRight)
+                        {
+                            index++;
                             continue;
+                        }
                         else if ((int)currentLeft > (int)currentRight)
                             return false;
                         else
                             return true;
                     }
-                    else if(currentLeft.GetType() == typeof(Queue<object>))
+                    else if (currentLeft.GetType() == typeof(List<object>))
                     {
-                        if(((Queue<object>)currentLeft).SequenceEqual((Queue<object>)currentRight))
+                        if (((List<object>)currentLeft).SequenceEqual((List<object>)currentRight))
                         {
+                            index++;
                             continue;
                         }
-                        else if (!IsInOrder((Queue<object>)currentLeft, (Queue<object>)currentRight))
+                        else if (!IsInOrder((List<object>)currentLeft, (List<object>)currentRight))
                         {
                             return false;
                         }
@@ -129,21 +182,23 @@ namespace adventofcode2022
                     }
                     else
                     {
+                        index++;
                         continue;
                     }
                 }
                 else
                 {
-                    if (currentLeft.GetType() == typeof(int) && currentRight.GetType() == typeof(Queue<object>)) 
+                    if (currentLeft.GetType() == typeof(int) && currentRight.GetType() == typeof(List<object>))
                     {
-                        Queue<object> newLeft = new Queue<object>();
-                        newLeft.Enqueue((int)currentLeft);
+                        List<object> newLeft = new List<object>();
+                        newLeft.Add((int)currentLeft);
 
-                        if (newLeft.SequenceEqual((Queue<object>)currentRight))
+                        if (newLeft.SequenceEqual((List<object>)currentRight))
                         {
+                            index++;
                             continue;
                         }
-                        else if (!IsInOrder(newLeft, (Queue<object>)currentRight))
+                        else if (!IsInOrder(newLeft, (List<object>)currentRight))
                         {
                             return false;
                         }
@@ -152,16 +207,17 @@ namespace adventofcode2022
                             return true;
                         }
                     }
-                    else if(currentLeft.GetType() == typeof(Queue<object>) && currentRight.GetType() == typeof(int))
+                    else if (currentLeft.GetType() == typeof(List<object>) && currentRight.GetType() == typeof(int))
                     {
-                        Queue<object> newRight = new Queue<object>();
-                        newRight.Enqueue((int)currentRight);
+                        List<object> newRight = new List<object>();
+                        newRight.Add((int)currentRight);
 
-                        if (((Queue<object>)currentLeft).SequenceEqual(newRight))
+                        if (((List<object>)currentLeft).SequenceEqual(newRight))
                         {
+                            index++;
                             continue;
                         }
-                        else if (!IsInOrder((Queue<object>)currentLeft, newRight))
+                        else if (!IsInOrder((List<object>)currentLeft, newRight))
                         {
                             return false;
                         }
@@ -172,6 +228,7 @@ namespace adventofcode2022
                     }
                     else
                     {
+                        index++;
                         continue;
                     }
                 }
@@ -179,5 +236,27 @@ namespace adventofcode2022
 
             return true;
         }
+
+        //private class QueueComparer : IComparable<Queue<object>>
+        //{
+        //    public int CompareTo(Queue<object>? other)
+        //    {
+        //        if (IsInOrder(this., other))
+        //            return 1;
+        //        else
+        //            return -1;
+        //    }
+        //}
     }
+
+    //public class CustomQueue : Queue<object>, IComparable
+    //{
+    //    public CustomQueue() { }
+
+    //    public int CompareTo(object? obj)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
 }

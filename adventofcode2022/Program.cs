@@ -43,7 +43,7 @@ namespace adventofcode2022
             //DayTwelve.Execute();
 
             Console.WriteLine("\nAdvent of Code - Day Thirteen");
-            DayThirteen.Execute();
+            new DayThirteen().Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Fourteen");
             //DayFourteen.Execute();
