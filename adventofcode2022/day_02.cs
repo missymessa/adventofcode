@@ -7,23 +7,26 @@ using System.Threading.Tasks;
 
 namespace adventofcode2022
 {
-    public static class DayTwo
+    public class DayTwo : DayBase<int>
     {
-        public static void Execute()
+        public DayTwo() : base("day_02.txt") { }
+
+        public DayTwo(string fileName) : base(fileName) { }
+
+        public override int Problem1()
         {
-            List<string> gameInput = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", "day_02.txt")).ToList();
             int totalScore = 0;
 
             // Problem 1
-            foreach(var game in gameInput)
+            foreach (var game in _input)
             {
                 string[] result = game.Split(' ');
 
-                switch(result[0])
+                switch (result[0])
                 {
                     // Rock
                     case "A":
-                        switch(result[1])
+                        switch (result[1])
                         {
                             // Rock - 1 - draw
                             case "X":
@@ -31,7 +34,7 @@ namespace adventofcode2022
                                 break;
                             // Paper - 2 - win
                             case "Y":
-                                totalScore += 8; 
+                                totalScore += 8;
                                 break;
                             // Scissors - 3 - lose
                             case "Z":
@@ -78,12 +81,14 @@ namespace adventofcode2022
                 }
             }
 
-            Console.WriteLine("Problem 1: {0}", totalScore);
+            return totalScore;
+        }
 
-            // Problem 2
-            totalScore = 0;
+        public override int Problem2()
+        {
+            int totalScore = 0;
 
-            foreach (var game in gameInput)
+            foreach (var game in _input)
             {
                 string[] result = game.Split(' ');
 
@@ -146,7 +151,7 @@ namespace adventofcode2022
                 }
             }
 
-            Console.WriteLine("Problem 2: {0}", totalScore);
+            return totalScore;
         }
     }
 }

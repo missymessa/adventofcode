@@ -10,7 +10,7 @@ namespace adventofcode2022
             //new DayOne().Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Two");
-            //DayTwo.Execute();
+            //new DayTwo().Execute();
 
             //Console.WriteLine("\nAdvent of Code - Day Three");
             //DayThree.Execute();
