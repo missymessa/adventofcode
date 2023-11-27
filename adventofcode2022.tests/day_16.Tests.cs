@@ -6,36 +6,30 @@ using System.Threading.Tasks;
 
 namespace adventofcode2022.tests
 {
-    public class DayFifteenTests
+    public class DaySixteenTests
     {
-        [Test]
-        public void SensorBeaconPairTest()
-        {
-            var sensorBeaconPair = new SensorBeaconPair((7, 8), (10, 2));
-
-            Assert.That(sensorBeaconPair.GetPointSpreadForRow(10), Is.EqualTo((2, 14)));
-        }
-
         [Test]
         public void Problem1Example()
         {
-            var day = new DayFifteen(10, 20, "day_15_ex.txt");
+            var day = new DaySixteen("day_16_ex.txt");
 
-            Assert.That(day.Problem1(), Is.EqualTo(26));
+            Assert.That(day.Problem1(), Is.EqualTo(1351));
         }
 
         [Test]
+        [Ignore("Not solved yet")]
         public void Problem2Example()
         {
-            var day = new DayFifteen(10, 20, "day_15_ex.txt");
+            var day = new DaySixteen("day_16_ex.txt");
 
             Assert.That(day.Problem2(), Is.EqualTo(56000011));
         }
 
         [Test]
+        [Ignore("Not solved yet")]
         public void Problem1Actual()
         {
-            var day = new DayFifteen();
+            var day = new DaySixteen();
 
             Assert.That(day.Problem1(), Is.EqualTo(4951427));
         }
@@ -44,7 +38,7 @@ namespace adventofcode2022.tests
         [Ignore("Not solved yet")]
         public void Problem2Actual()
         {
-            var day = new DayFifteen();
+            var day = new DaySixteen();
 
             //Assert.That(day.Problem2(), Is.EqualTo(199357));
         }

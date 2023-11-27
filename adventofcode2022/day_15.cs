@@ -13,18 +13,22 @@ namespace adventofcode2022
     public class DayFifteen : DayBase<int>
     {
         private int _searchRow;
+        private long _boundary;
+        private List<SensorBeaconPair> _data = new List<SensorBeaconPair>();
 
         public DayFifteen() : base("day_15.txt") 
         {
             _searchRow = 2000000;
+            _boundary = 4000000;
         }
 
-        public DayFifteen(int searchRow, string fileName) : base(fileName) 
+        public DayFifteen(int searchRow, long boundary, string fileName) : base(fileName) 
         {
             _searchRow = searchRow;
+            _boundary = boundary;
         }
 
-        public override int Problem1()
+        private List<SensorBeaconPair> ParseInput()
         {
             List<SensorBeaconPair> sbpList = new List<SensorBeaconPair>();
 
@@ -38,27 +42,32 @@ namespace adventofcode2022
                 sbpList.Add(new SensorBeaconPair((sensorY, sensorX), (beaconY, beaconX)));
             }
 
-            Dictionary<int, char> xRanges = new Dictionary<int, char>();
+            return sbpList;
+        }
 
-            foreach (var pair in sbpList)
+        private Dictionary<long, char> GetPointsForRow(long rowId)
+        {
+            Dictionary<long, char> xRanges = new Dictionary<long, char>();
+
+            foreach (var pair in _data)
             {
                 // compare each pair, find overlaps (need to make sure we omit non covered spaces)
                 (int currentMin, int currentMax) = pair.GetPointSpreadForRow(_searchRow);
 
-                for(int i = currentMin; i <= currentMax; i++) 
-                { 
+                for (long i = currentMin; i <= currentMax; i++)
+                {
                     xRanges.TryAdd(i, '#');
                 }
 
-                if(pair.Beacon.y == _searchRow)
+                if (pair.Beacon.y == _searchRow)
                 {
-                    if(!xRanges.TryAdd(pair.Beacon.y, '#'))
+                    if (!xRanges.TryAdd(pair.Beacon.y, '#'))
                     {
                         xRanges[pair.Beacon.y] = 'B';
                     }
                 }
 
-                if(pair.Sensor.y == _searchRow)
+                if (pair.Sensor.y == _searchRow)
                 {
                     if (!xRanges.TryAdd(pair.Sensor.y, '#'))
                     {
@@ -67,12 +76,27 @@ namespace adventofcode2022
                 }
             }
 
+            return xRanges;
+        }
+
+        public override int Problem1()
+        {
+            _data = ParseInput();
+
+            Dictionary<long, char> xRanges = GetPointsForRow(_searchRow);
+
             return xRanges.Count(x => x.Value == '#');
         }
 
         public override int Problem2()
         {
-            throw new NotImplementedException();
+            _data = ParseInput();
+
+            int tuningFrequency = 0;
+
+
+
+            return tuningFrequency;
         }
     }
 

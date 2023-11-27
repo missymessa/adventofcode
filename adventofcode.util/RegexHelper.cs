@@ -149,6 +149,40 @@ namespace adventofcode.util
             return m.Success;
         }
 
+        public static bool Match<T1, T2, T3, T4, T5, T6>(
+            string input,
+            string pattern,
+            out T1 value1,
+            out T2 value2,
+            out T3 value3,
+            out T4 value4,
+            out T5 value5,
+            out T6 value6,
+            bool display = false
+        )
+        {
+            Match m = GetMatch(input, pattern, 6, display);
+            if (m.Success)
+            {
+                value1 = (T1)Convert.ChangeType(m.Groups[1].Value, typeof(T1));
+                value2 = (T2)Convert.ChangeType(m.Groups[2].Value, typeof(T2));
+                value3 = (T3)Convert.ChangeType(m.Groups[3].Value, typeof(T3));
+                value4 = (T4)Convert.ChangeType(m.Groups[4].Value, typeof(T4));
+                value5 = (T5)Convert.ChangeType(m.Groups[5].Value, typeof(T5));
+                value6 = (T6)Convert.ChangeType(m.Groups[6].Value, typeof(T6));
+            }
+            else
+            {
+                value1 = default;
+                value2 = default;
+                value3 = default;
+                value4 = default;
+                value5 = default;
+                value6 = default;
+            }
+            return m.Success;
+        }
+
         public static Match GetMatch(string input, string pattern, int count, bool display = false)
         {
             Match m = Regex.Match(input, pattern);
