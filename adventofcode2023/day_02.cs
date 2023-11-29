@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace adventofcode2023
 {
-    public class day_1 : DayBase<int>
+    public class day_2 : DayBase<int>
     {
-        public day_1() : base("day_01.txt") 
+        public day_2() : base("day_02.txt") 
         {
-            Console.WriteLine("Advent of Code - Day One");
+            Console.WriteLine("Advent of Code - Day Two");
         }
 
-        public day_1(string fileName) : base(fileName) { }
+        public day_2(string fileName) : base(fileName) { }
 
         public override int Problem1()
         {

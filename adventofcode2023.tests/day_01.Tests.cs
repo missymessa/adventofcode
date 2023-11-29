@@ -7,7 +7,7 @@ namespace adventofcode2023.tests
         [Test]
         public void Problem1Example()
         {
-            var day = new DayOne("day_01_ex.txt");
+            var day = new day_1("day_01_ex.txt");
 
             //Assert.That(day.Problem1(), Is.EqualTo(24000));
         }
@@ -15,7 +15,7 @@ namespace adventofcode2023.tests
         [Test]
         public void Problem2Example()
         {
-            var day = new DayOne("day_01_ex.txt");
+            var day = new day_1("day_01_ex.txt");
 
             //Assert.That(day.Problem2(), Is.EqualTo(45000));
         }
@@ -23,7 +23,7 @@ namespace adventofcode2023.tests
         [Test]
         public void Problem1Actual()
         {
-            var day = new DayOne();
+            var day = new day_1();
 
             //Assert.That(day.Problem1(), Is.EqualTo(67450));
         }
@@ -31,7 +31,7 @@ namespace adventofcode2023.tests
         [Test]
         public void Problem2Actual()
         {
-            var day = new DayOne();
+            var day = new day_1();
 
            // Assert.That(day.Problem2(), Is.EqualTo(199357));
         }

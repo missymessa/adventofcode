@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace adventofcode2023
 {
@@ -6,77 +7,39 @@ namespace adventofcode2023
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Advent of Code - Day One");
-            new DayOne().Execute();
+            // TODO: be able to look up the day from user input
 
-            //Console.WriteLine("\nAdvent of Code - Day Two");
-            //new DayTwo().Execute();
+            // Get day in UTC-5. Run that day's code. 
+            int day = DateTime.UtcNow.AddHours(-5).Day;
 
-            //Console.WriteLine("\nAdvent of Code - Day Three");
-            //DayThree.Execute();
+            Assembly asm = Assembly.GetExecutingAssembly();
 
-            //Console.WriteLine("\nAdvent of Code - Day Four");
-            //DayFour.Execute();
+            if (day > 25) day = 1;
 
-            //Console.WriteLine("\nAdvent of Code - Day Five");
-            //DayFive.Execute();
+            Type type = asm.GetType($"adventofcode2023.day_{day}");
 
-            //Console.WriteLine("\nAdvent of Code - Day Six");
-            //DaySix.Execute();
+            if (type != null)
+            {
+                // Create an instance of the class
+                object instance = Activator.CreateInstance(type);
 
-            //Console.WriteLine("\nAdvent of Code - Day Seven");
-            //DaySeven.Execute();
+                // Get the method info for the method you want to invoke
+                MethodInfo methodInfo = type.GetMethod("Execute");
 
-            //Console.WriteLine("\nAdvent of Code - Day Eight");
-            //DayEight.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Nine");
-            //DayNine.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Ten");
-            //DayTen.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Eleven");
-            //DayEleven.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twelve");
-            //DayTwelve.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Thirteen");
-            //new DayThirteen().Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Fourteen");
-            //DayFourteen.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Fifteen");
-            //new DayFifteen().Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Sixteen");
-            //new DaySixteen().Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Seventeen");
-            //DaySeventeen.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Eighteen");
-            //DayEighteen.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Nineteen");
-            //DayNineteen.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twenty");
-            //DayTwenty.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twenty-One");
-            //DayTwentyOne.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twenty-Two");
-            //DayTwentyTwo.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twenty-Three");
-            //DayTwentyThree.Execute();
-
-            //Console.WriteLine("\nAdvent of Code - Day Twenty-Four");
-            //DayTwentyFour.Execute();
+                if (methodInfo != null)
+                {
+                    // Invoke the method on the instance
+                    methodInfo.Invoke(instance, null);
+                }
+                else
+                {
+                    Console.WriteLine("Method not found");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Type not found");
+            }
         }
     }
 }
