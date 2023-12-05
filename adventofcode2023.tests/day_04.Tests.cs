@@ -33,7 +33,7 @@ namespace adventofcode2023.tests
         {
             var day = new day_4();
 
-            Assert.That(day.Problem2(), Is.EqualTo(80253814));
+            Assert.That(day.Problem2(), Is.EqualTo(14814534));
         }
     }
 }
