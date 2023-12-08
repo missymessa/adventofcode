@@ -50,11 +50,6 @@ namespace adventofcode2023
             long totalWinnings = 0;
             int rank = 1;
 
-            for(int j = 0;  j < hands.Count; j++)
-            {
-                Console.WriteLine(hands[j].hand + " " + hands[j].bid);
-            }
-
             for (int i = hands.Count - 1; i >= 0; i--)
             {
                 totalWinnings += (rank * hands[i].bid);
