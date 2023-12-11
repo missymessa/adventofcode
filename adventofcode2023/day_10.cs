@@ -1,21 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using adventofcode.util;
+
+/// For future refactoring
+/// Look at Pick's Theorem
+/// 
+/// The following code should be able to solve part 2 as long as the path has been walked.
+/// Need to clear out "junk pipes"
+/// int A2 = 0;
+/// for (int i = 0; i < path.Count; i++)
+/// {
+///    A2 += path[i].x * path[(i + 1) % path.Count].y - path[i].y * path[(i + 1) % path.Count].x;
+///}
+///
+///(A2 / 2 - path.Count / 2 + 1).Dump("Pick's Theorem + Shoelace Formula");
 
 namespace adventofcode2023
 {
     public class day_10 : DayBase<long>
     {
         private Dictionary<(int x, int y), List<(int x, int y)>> adjacencyList = new Dictionary<(int x, int y), List<(int x, int y)>>();
-        private long maxDistance = 0;
+        private List<(int x, int y)> nodesInLoop = new List<(int x, int y)>();
         private int maxX = 0;
         private int maxY = 0;
         private (int x, int y) startingPosition = (0, 0);
         private string[] updatedInput;
-
+        private long problem2Answer = 0;
 
         public day_10() : base("day_10.txt")
         {
@@ -30,32 +44,34 @@ namespace adventofcode2023
 
         public override long Problem1()
         {
-            return FindFarthestDistance(startingPosition, maxX, maxY);
-        }
+            long problem1Answer = FindFarthestDistance(startingPosition, maxX, maxY);
 
-        public override long Problem2()
-        {
-            string[] display = new string[maxY];
+            // remove any pipes that aren't a part of the loop
+            foreach (var node in adjacencyList)
+            {
+                if (!nodesInLoop.Contains(node.Key))
+                    adjacencyList.Remove(node.Key);
+            }
 
             // count internal spaces            
             long enclosedSpaces = 0;
 
             int y = 0;
 
-            foreach(var input in updatedInput)
+            foreach (var input in updatedInput)
             {
                 char[] inputChar = input.ToCharArray();
                 bool isOpen = true;
 
                 for (int x = 0; x < inputChar.Length; x++)
-                {                    
+                {
                     char c = inputChar[x];
                     List<(int x, int y)> value;
                     bool isInLoop = adjacencyList.TryGetValue((x, y), out value);
 
-                    if (isInLoop && value.Count == 2 && 
-                        (c == '|' || 
-                        (c == 'F' && LookAhead(inputChar, x, 'J', '-')) || 
+                    if (isInLoop && value.Count == 2 &&
+                        (c == '|' ||
+                        (c == 'F' && LookAhead(inputChar, x, 'J', '-')) ||
                         (c == 'L' && LookAhead(inputChar, x, '7', '-'))))
                         isOpen = !isOpen;
 
@@ -66,17 +82,19 @@ namespace adventofcode2023
                     }
                 }
 
-                display[y] = new string(inputChar);
-
                 y++;
             }
 
-            foreach(var line in display)
-            {
-                Console.WriteLine(line);
-            }
+            problem2Answer = enclosedSpaces;
 
-            return enclosedSpaces;
+            return problem1Answer;
+        }
+
+        public override long Problem2()
+        {
+            if(problem2Answer == 0) Problem1();
+
+            return problem2Answer;            
         }
 
         private bool LookAhead(char[] line, int startingIndex, char ending, char ignore)
@@ -200,6 +218,8 @@ namespace adventofcode2023
             Queue<(int x, int y)> queue = new Queue<(int x, int y)>();
             queue.Enqueue(startVertex);
             visited[startVertex.Item1, startVertex.Item2] = true;
+            
+            nodesInLoop.Add(startVertex);
 
             // Initialize distance to 0
             long distance = 0;
@@ -218,6 +238,7 @@ namespace adventofcode2023
                         if (!visited[neighbor.Item1, neighbor.Item2])
                         {
                             visited[neighbor.Item1, neighbor.Item2] = true;
+                            if(!nodesInLoop.Contains(neighbor)) nodesInLoop.Add(neighbor);
                             queue.Enqueue(neighbor);
                         }
                     }
