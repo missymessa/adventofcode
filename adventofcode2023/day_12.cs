@@ -53,6 +53,9 @@ namespace adventofcode2023
 
             // I stole this code from reddit: https://www.reddit.com/r/adventofcode/comments/18ge41g/comment/kd0u7ej/?context=3
             // it uses memoization/dynamic programming to determine the number of possible solutions
+            // continues to break down the pattern and series into smaller pieces until we can 
+            // easily look up what the result is for that specific pattern/series combination without
+            // have to recalcuate it each time. 
             long Calculate(string pattern, List<int> series)
             {
                 var key = $"{pattern},{string.Join(',', series)}";  // Cache key: spring pattern + group lengths
