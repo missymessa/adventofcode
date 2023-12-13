@@ -11,7 +11,6 @@ namespace adventofcode2023
     public class day_12 : DayBase<long>
     {
         private List<string> _generatedPatterns = new List<string>();
-        private Dictionary<string, bool> _memo = new Dictionary<string, bool>();
 
         public day_12() : base("day_12.txt")
         {
