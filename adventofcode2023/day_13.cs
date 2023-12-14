@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using adventofcode.util;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace adventofcode2023
 {

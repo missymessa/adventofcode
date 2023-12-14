@@ -15,5 +15,13 @@ namespace adventofcode.util
                 Console.WriteLine(line);
             }
         }
+
+        public static void PrintToConsole(char[][] input)
+        {
+            foreach (var line in input)
+            {
+                Console.WriteLine(new string(line));
+            }
+        }
     }
 }
