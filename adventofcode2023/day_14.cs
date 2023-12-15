@@ -42,6 +42,7 @@ namespace adventofcode2023
                 var key = string.Join(",", charArray.Select(row => new string(row)));
                 if(!cycleDetected && seen.ContainsKey(key))
                 {
+                    Console.WriteLine($"cycle discovered: {i + 1}");
                     int cycleStart = seen[key];
                     int period = i - cycleStart;
                     i = cycles - ((cycles - cycleStart) % period);
