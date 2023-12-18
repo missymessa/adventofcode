@@ -9,13 +9,20 @@ namespace adventofcode2023
     public abstract class DayBase<T>
     {
         protected List<string> _input;
+        protected string _rawInput;
 
         public DayBase(string fileName)
         {
-            _input = LoadInput(fileName);
+            _rawInput = LoadInput(fileName);
+            _input = LoadInputAsList(fileName);
         }
 
-        protected List<string> LoadInput(string filename)
+        protected string LoadInput(string filename)
+        {
+            return File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "input", filename));
+        }
+
+        protected List<string> LoadInputAsList(string filename)
         {
             return File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input", filename)).ToList();
         }

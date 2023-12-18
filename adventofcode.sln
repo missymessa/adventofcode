@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventofcode.util", "advent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventofcode2023", "adventofcode2023\adventofcode2023.csproj", "{34274E18-D60B-4AC3-8CF5-7A6B79008530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "adventofcode2023.tests", "adventofcode2023.tests\adventofcode2023.tests.csproj", "{0FF8882F-7F67-4B3D-8925-9B527D425CF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adventofcode2023.tests", "adventofcode2023.tests\adventofcode2023.tests.csproj", "{0FF8882F-7F67-4B3D-8925-9B527D425CF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
