@@ -14,6 +14,8 @@ namespace adventofcode.util
             {
                 Console.WriteLine(line);
             }
+
+            Console.WriteLine();
         }
 
         public static void PrintToConsole(char[][] input)
@@ -22,6 +24,8 @@ namespace adventofcode.util
             {
                 Console.WriteLine(new string(line));
             }
+
+            Console.WriteLine();
         }
     }
 }

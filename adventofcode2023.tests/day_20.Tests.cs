@@ -28,7 +28,7 @@ namespace adventofcode2023.tests
         {
             var day = new day_20();
 
-            Assert.That(day.Problem2(), Is.EqualTo(133973513090020));
+            Assert.That(day.Problem2(), Is.EqualTo(211712400442661));
         }
     }
 }

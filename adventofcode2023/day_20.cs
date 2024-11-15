@@ -231,11 +231,12 @@ namespace adventofcode2023
         private int HighPulseCount { get; set; } = 0;
         private int LowPulseCount { get; set; } = 0;
         public int PulseProduct { get { return HighPulseCount * LowPulseCount; } }
-        public int ButtonPressCount { get { return _buttonPressCount; } }
         private int _buttonPressCount = 0;
 
         public long LCM { get { return _lcm; } }
         private long _lcm = 0;
+        // modules that pass into bb that will end up calling rx. Should probably redo this to look it up from the data set so that this is more
+        // generic. 
         private Dictionary<string, int> modulesToRx = new Dictionary<string, int>() { { "ct", 0 }, { "kp", 0 }, { "ks", 0 }, { "xc", 0 } };
         
 
