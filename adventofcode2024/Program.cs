@@ -16,7 +16,7 @@ namespace adventofcode2024
 
             if (day > 25) day = 1;
 
-            Type type = asm.GetType($"adventofcode2023.day_{day}");
+            Type type = asm.GetType($"adventofcode2024.day_{day}");
 
             if (type != null)
             {

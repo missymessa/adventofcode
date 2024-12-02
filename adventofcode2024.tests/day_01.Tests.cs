@@ -9,15 +9,15 @@ namespace adventofcode2024.tests
         {
             var day = new day_1("day_01_ex.txt");
 
-            Assert.That(day.Problem1(), Is.EqualTo(142));
+            Assert.That(day.Problem1(), Is.EqualTo(11));
         }
 
         [Test]
         public void Problem2Example()
         {
-            var day = new day_1("day_01_ex2.txt");
+            var day = new day_1("day_01_ex.txt");
 
-            Assert.That(day.Problem2(), Is.EqualTo(281));
+            Assert.That(day.Problem2(), Is.EqualTo(31));
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace adventofcode2024.tests
         {
             var day = new day_1();
 
-            Assert.That(day.Problem1(), Is.EqualTo(57346));
+            Assert.That(day.Problem1(), Is.EqualTo(2164381));
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace adventofcode2024.tests
         {
             var day = new day_1();
 
-            Assert.That(day.Problem2(), Is.EqualTo(57345));
+            Assert.That(day.Problem2(), Is.EqualTo(20719933));
         }
     }
 }
