@@ -8,10 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\adventofcode.util\adventofcode.util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="input\day_03.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="input\day_02.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="input\day_01.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="input\day_03_ex2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="input\day_03_ex.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="input\day_02_ex.txt">
