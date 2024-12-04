@@ -20,7 +20,9 @@ namespace adventofcode2024
 
         public override int Problem1()
         {
-            return ExtractResult(_input[0]);
+            var input = string.Join("", _input);
+
+            return ExtractResult(input);
         }
 
         private int ExtractResult(string line)
@@ -45,7 +47,8 @@ namespace adventofcode2024
         {
             int result = 0;
 
-            var lineSplit = _input[0].Split("don't()");
+            var input = string.Join("", _input);
+            var lineSplit = input.Split("don't()");
 
             result = ExtractResult(lineSplit[0]);
 
