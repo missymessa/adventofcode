@@ -29,6 +29,14 @@ namespace adventofcode2024.tests
         }
 
         [Test]
+        public void Problem2Example3()
+        {
+            var day = new day_15("day_15_ex3.txt");
+
+            Assert.That(day.Problem2(), Is.EqualTo(0)); // Just testing the final position for now
+        }
+
+        [Test]
         public void Problem1Actual()
         {
             var day = new day_15();
@@ -41,7 +49,7 @@ namespace adventofcode2024.tests
         {
             var day = new day_15();
 
-            Assert.That(day.Problem2(), Is.EqualTo(108713182988244));
+            Assert.That(day.Problem2(), Is.EqualTo(1482350));
         }
     }
 }

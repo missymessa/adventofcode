@@ -101,8 +101,6 @@ namespace adventofcode2024
                 robotX = newX;
                 robotY = newY;
             }
-
-            PrintWarehouse();
         }
 
         private bool IsValidMove(int newX, int newY, int dx, int dy)
@@ -178,145 +176,20 @@ namespace adventofcode2024
         {
             // Same as problem 1, but everything is twice as wide, except for the robot
             ParseInput_Problem2();
-            Console.WriteLine("Initial Warehouse:");
+
+            int moveCount = 0;
+            foreach (var move in moves)
+            {
+               foreach (var direction in move)
+               {
+                   moveCount++;
+                   MakeMove_Problem2(direction);
+               }
+            }
+
+            Console.WriteLine($"Processed {moveCount} moves");
+            Console.WriteLine("Final Warehouse:");
             PrintWarehouse();
-
-            var direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '>';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '>';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '>';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '>';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '>';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '^';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = 'v';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            direction = '<';
-            Console.WriteLine($"Moving {direction}");
-            MakeMove_Problem2(direction);
-
-            //foreach (var move in moves)
-            //{
-            //    foreach (var direction in move)
-            //    {
-            //        Console.WriteLine($"Moving {direction}");
-            //        MakeMove_Problem2(direction);
-            //    }
-            //}
 
             return CalculateResult_Problem2();
         }
@@ -394,7 +267,9 @@ namespace adventofcode2024
             newX += dx;
             newY += dy;
 
-            if (IsValidMove_Problem2(newX, newY, dx, dy))
+            var checkedBoxes = new HashSet<(int, int)>();
+            
+            if (IsValidMove_Problem2(newX, newY, dx, dy, checkedBoxes))
             {
                 MoveBoxes_Problem2(newX, newY, dx, dy);
                 warehouse[robotY, robotX] = '.';
@@ -402,25 +277,57 @@ namespace adventofcode2024
                 robotX = newX;
                 robotY = newY;
             }
-
-            PrintWarehouse();
         }
 
-        private bool IsValidMove_Problem2(int newX, int newY, int dx, int dy)
+        private bool IsValidMove_Problem2(int newX, int newY, int dx, int dy, HashSet<(int, int)> checkedBoxes = null)
         {
-            int x = newX, y = newY;
+            if (checkedBoxes == null)
+            {
+                checkedBoxes = new HashSet<(int, int)>();
+            }
 
+            if (newY < 0 || newY >= warehouse.GetLength(0) || newX < 0 || newX >= warehouse.GetLength(1))
+            {
+                return false;
+            }
+            
             if (warehouse[newY, newX] == '#')
             {
                 return false;
             }
-            else if ((warehouse[newY, newX] == '[' || warehouse[newY, newX] == ']') && dx != 0)
+            else if (warehouse[newY, newX] == '.')
             {
-                return IsValidMove_Problem2(newX + (dx * 2), newY + dy, dx, dy);
+                return true;
             }
-            else if ((warehouse[newY, newX] == '[' || warehouse[newY, newX] == ']') && dy != 0)
+            else if (dx != 0) // Moving horizontally
             {
-                return IsValidMove_Problem2(newX + dx, newY + dy, dx, dy);
+                return IsValidMove_Problem2(newX + dx, newY, dx, dy, checkedBoxes);
+            }
+            else if (dy != 0) // Moving vertically
+            {
+                // Find the left side of the box
+                int boxLeftX = newX;
+                if (warehouse[newY, newX] == ']')
+                {
+                    boxLeftX = newX - 1;
+                }
+                else if (warehouse[newY, newX] != '[')
+                {
+                    return true; // Not a box (shouldn't happen)
+                }
+
+                // Check if we already validated this box
+                if (checkedBoxes.Contains((boxLeftX, newY)))
+                {
+                    return true;
+                }
+
+                checkedBoxes.Add((boxLeftX, newY));
+
+                // Check if both sides of the box can move
+                bool leftSide = IsValidMove_Problem2(boxLeftX, newY + dy, dx, dy, checkedBoxes);
+                bool rightSide = IsValidMove_Problem2(boxLeftX + 1, newY + dy, dx, dy, checkedBoxes);
+                return leftSide && rightSide;
             }
 
             return true;
@@ -428,42 +335,150 @@ namespace adventofcode2024
 
         private void MoveBoxes_Problem2(int newX, int newY, int dx, int dy)
         {
-            int x = newX, y = newY;
-            List<(int, int)> boxes = new List<(int, int)>();
-
-            while (warehouse[y, x] == '[' || warehouse[y, x] == ']')
+            if (warehouse[newY, newX] == '.')
             {
-                if (warehouse[y, x] == '[' && dx != 0)
+                return;
+            }
+
+            if (dx != 0) // Moving horizontally
+            {
+                int x = newX, y = newY;
+                List<(int, int)> boxes = new List<(int, int)>();
+
+                // Collect all boxes in the push direction
+                while (warehouse[y, x] == '[' || warehouse[y, x] == ']')
                 {
-                    boxes.Add((x, y));
-                    x += dx * 2;
-                    y += dy;
+                    // Find the left edge of this box
+                    int boxLeftX = (warehouse[y, x] == '[') ? x : x - 1;
+                    
+                    // Add if not already added
+                    if (!boxes.Contains((boxLeftX, y)))
+                    {
+                        boxes.Add((boxLeftX, y));
+                    }
+                    
+                    // Move to the next position in the direction we're pushing
+                    if (dx > 0)
+                    {
+                        x = boxLeftX + 2; // Skip past this box when moving right
+                    }
+                    else
+                    {
+                        x = boxLeftX - 1; // Check before this box when moving left
+                    }
                 }
-                else if(warehouse[y, x] == ']' && dx != 0)
+
+                // Move boxes based on direction
+                if (dx > 0) // Moving right
                 {
-                    boxes.Add((x - 1, y));
-                    x += ((dx * 2) - 1);
-                    y += dy;
+                    boxes.Reverse();
+                    foreach (var (bx, by) in boxes)
+                    {
+                        warehouse[by, bx] = '.';
+                        warehouse[by, bx + 1] = '.';
+                        warehouse[by, bx + 1] = '[';
+                        warehouse[by, bx + 2] = ']';
+                    }
+                }
+                else // Moving left
+                {
+                    boxes.Reverse();
+                    foreach (var (bx, by) in boxes)
+                    {
+                        warehouse[by, bx] = '.';
+                        warehouse[by, bx + 1] = '.';
+                        warehouse[by, bx - 1] = '[';
+                        warehouse[by, bx] = ']';
+                    }
+                }
+            }
+            else // Moving vertically
+            {
+                HashSet<(int, int)> boxesToMove = new HashSet<(int, int)>();
+                CollectBoxesToMove(newX, newY, dy, boxesToMove);
+
+                if (boxesToMove.Count == 0)
+                {
+                    return;
+                }
+
+                // Create a list of box positions with their old and new positions
+                List<((int x, int y) oldPos, (int x, int y) newPos)> moves = new List<((int x, int y) oldPos, (int x, int y) newPos)>();
+                
+                foreach (var (bx, by) in boxesToMove)
+                {
+                    moves.Add(((bx, by), (bx, by + dy)));
+                }
+
+                // Sort by y position (move from furthest first)
+                if (dy > 0)
+                {
+                    moves = moves.OrderByDescending(m => m.oldPos.y).ToList();
                 }
                 else
                 {
-                    boxes.Add((x, y));
-                    x += dx;
-                    y += dy;
+                    moves = moves.OrderBy(m => m.oldPos.y).ToList();
                 }
-            }
 
-            boxes.Reverse();
-
-            foreach (var (bx, by) in boxes)
-            {
-                warehouse[by + dy, bx + dx] = '[';
-                warehouse[by + dy, bx + dx + 1] = ']';
-                if (dy != 0)
+                // Clear old positions
+                foreach (var (oldPos, newPos) in moves)
                 {
-                    warehouse[by, bx] = '.';
+                    warehouse[oldPos.y, oldPos.x] = '.';
+                    warehouse[oldPos.y, oldPos.x + 1] = '.';
+                }
+
+                // Set new positions
+                foreach (var (oldPos, newPos) in moves)
+                {
+                    if (newPos.y < 0 || newPos.y >= warehouse.GetLength(0) || 
+                        newPos.x < 0 || newPos.x + 1 >= warehouse.GetLength(1))
+                    {
+                        Console.WriteLine($"ERROR: Trying to place box at invalid position ({newPos.x}, {newPos.y})");
+                        continue;
+                    }
+                    warehouse[newPos.y, newPos.x] = '[';
+                    warehouse[newPos.y, newPos.x + 1] = ']';
                 }
             }
+        }
+
+        private void CollectBoxesToMove(int x, int y, int dy, HashSet<(int, int)> boxes)
+        {
+            // Check bounds
+            if (y < 0 || y >= warehouse.GetLength(0) || x < 0 || x >= warehouse.GetLength(1))
+            {
+                return;
+            }
+            
+            char cell = warehouse[y, x];
+            
+            if (cell == '.' || cell == '#')
+            {
+                return;
+            }
+
+            // Find the left side of the box
+            int boxLeftX = x;
+            if (cell == ']')
+            {
+                boxLeftX = x - 1;
+            }
+            else if (cell != '[')
+            {
+                return; // Not a box (like @)
+            }
+
+            // Check if we already processed this box
+            if (boxes.Contains((boxLeftX, y)))
+            {
+                return;
+            }
+
+            boxes.Add((boxLeftX, y));
+
+            // Recursively check positions above/below both sides of the box
+            CollectBoxesToMove(boxLeftX, y + dy, dy, boxes);
+            CollectBoxesToMove(boxLeftX + 1, y + dy, dy, boxes);
         }
 
         private long CalculateResult_Problem2()
